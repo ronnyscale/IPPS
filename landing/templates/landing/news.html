@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Последние новости</h1>
+</div>
+{% endblock %}
+
+{% block news %}
+<div class="container py-5 border-top">
+    <div class="row mt-4">
+        {% for news_item in latest_news %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if news_item.image %}
+                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ news_item.title }}</h5>
+                        <p class="card-text">{{ news_item.content }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
