@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Контакты института педагогики, психологии и социологии</h1>
+
+    <!-- Дирекция ИППС -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Дирекция ИППС</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Адрес:</strong> 660041, Красноярский край, г. Красноярск, пр. Свободный, 79, ауд. 13–13</p>
+            <p><strong>Телефон:</strong> +7 (391) 246–99–34</p>
+            <p><strong>E-mail:</strong> <a href="mailto:ipps_sfu@sfu-kras.ru">ipps_sfu@sfu-kras.ru</a></p>
+        </div>
+    </div>
+
+    <!-- Учебно-организационный отдел -->
+    <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+        <h5 class="mb-0">Учебно-организационный отдел</h5>
+    </div>
+    <div class="card-body">
+        <p><strong>Начальник отдела:</strong> Валентина Викторовна Трофимова</p>
+
+        <div class="section">
+            <h6 class="section-header">Сектор планирования</h6>
+            <p><strong>Адрес:</strong> г. Красноярск, пр. Свободный, 79, ауд. 12-03 (Площадка № 1)</p>
+            <p><strong>Телефон:</strong> <a href="tel:+73912062124">+7 (391) 206-21-24</a></p>
+            <p><strong>E-mail:</strong> <a href="mailto:uoo_ipps@sfu-kras.ru">uoo_ipps@sfu-kras.ru</a></p>
+            <p><strong>Зав. сектором:</strong> Речкова Софья Михайловна</p>
+        </div>
+
+        <div class="section">
+            <h6 class="section-header">Сектор документации и информационного обеспечения</h6>
+            <p><strong>Адрес:</strong> г. Красноярск, пр. Свободный, 79, ауд. 12-03 (Площадка № 1)</p>
+            <p><strong>Телефон:</strong> <a href="tel:+73912062124">+7 (391) 206-21-24</a></p>
+            <p><strong>E-mail:</strong> <a href="mailto:uoo_ipps@sfu-kras.ru">uoo_ipps@sfu-kras.ru</a></p>
+            <p><strong>Зав. сектором:</strong> Шагако Елена Александровна</p>
+        </div>
+
+        <div class="section">
+            <h6 class="section-header">Сектор по работе со студентами</h6>
+            <p><strong>Адрес:</strong> г. Красноярск, пр. Свободный, 79, ауд. 12-03 (Площадка № 1)</p>
+            <p><strong>Телефон:</strong> <a href="tel:+73912062124">+7 (391) 206-21-24</a></p>
+            <p><strong>E-mail:</strong> <a href="mailto:uoo_ipps@sfu-kras.ru">uoo_ipps@sfu-kras.ru</a></p>
+            <p><strong>Зав. сектором:</strong> Софья Михайловна Речкова</p>
+            <p><strong>Методист:</strong> Ткаченко Ирина Игоревна</p>
+        </div>
+
+        <div class="section">
+            <h6 class="section-header">Сектор расписания</h6>
+            <p><strong>Адрес:</strong> г. Красноярск, пр. Свободный, 79, ауд. 12-03 (Площадка № 1)</p>
+            <p><strong>Телефон:</strong> <a href="tel:+73912062124">+7 (391) 206-21-24</a></p>
+            <p><strong>E-mail:</strong> <a href="mailto:uoo_ipps@sfu-kras.ru">uoo_ipps@sfu-kras.ru</a></p>
+            <p><strong>Зав. сектором:</strong> Корнева Татьяна Игоревна</p>
+        </div>
+
+        <div class="section">
+            <h6 class="section-header">Сектор магистратуры</h6>
+            <p><strong>Адрес:</strong> г. Красноярск, пр. Свободный, 79, ауд. 12-03 (Площадка № 1)</p>
+            <p><strong>Телефон:</strong> <a href="tel:+73912062124">+7 (391) 206-21-24</a></p>
+            <p><strong>E-mail:</strong> <a href="mailto:tkramorova@sfu-kras.ru">tkramorova@sfu-kras.ru</a></p>
+            <p><strong>Зав. сектором:</strong> Краморова Татьяна Олеговна</p>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Кафедры -->
+    {% if department %}
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h5 class="mb-0">Кафедры</h5>
+        </div>
+        <div class="card-body">
+            {% for department in departments %}
+            <div class="mb-3">
+                <h6>{{ department.name }}</h6>
+                <p><strong>Зав. кафедрой:</strong> {{ department.head }}</p>
+                <p><strong>Адрес:</strong> {{ department.address }}</p>
+                <p><strong>Телефон:</strong> {{ department.phone }}</p>
+                <p><strong>E-mail:</strong> <a href="mailto:{{ department.email }}">{{ department.email }}</a></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

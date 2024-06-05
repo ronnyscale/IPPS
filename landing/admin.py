@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import News, Project, Event, Department
+from core.models import News, Project, Event, Department, Partner
 
 
 @admin.register(News)
@@ -24,3 +24,9 @@ class EventAdmin(admin.ModelAdmin):
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
     search_fields = ['name', 'description']
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'url')
+    search_fields = ['name', 'url']

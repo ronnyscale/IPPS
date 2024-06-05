@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ department.name }}</h1>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <p class="card-text"><strong>Заведующий:</strong> {{ department.head }}</p>
+            <p class="card-text">{{ department.description }}</p>
+            <p><strong>Адрес:</strong> {{ department.address }}</p>
+            <p><strong>Телефон:</strong> <a href="tel:{{ department.phone }}">{{ department.phone }}</a></p>
+            <p><strong>Email:</strong> <a href="mailto:{{ department.email }}">{{ department.email }}</a></p>
+        </div>
+    </div>
+    <a href="{% url 'structure' %}" class="btn btn-secondary">Назад к списку</a>
+</div>
+{% endblock %}

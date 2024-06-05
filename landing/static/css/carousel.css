@@ -1,48 +1,44 @@
 .carousel-item img {
     max-width: 100%;
     height: auto;
-    max-height: 400px; /* Максимальная высота изображений */
-    margin: 0 auto; /* Центрируем изображения внутри карусели */
+    max-height: 400px;
+    margin: 0;
+}
+
+.text-carousel {
+    background-color: #f2f2f2;
 }
 
 .carousel-inner {
-    text-align: center; /* Центрируем содержимое карусели */
+    text-align: center;
 }
 
 .welcome-text {
     font-size: 36px;
     font-weight: bold;
-    text-align: left; 
+    text-align: left;
 }
 
 .typing-line {
     display: inline-block;
 }
 
-/* Создаем анимацию для мигающего курсора */
 @keyframes blink-caret {
-    from, to {
+
+    from,
+    to {
         border-color: transparent;
     }
+
     50% {
         border-color: black;
     }
 }
 
-.overlay-box {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    height: 100%; /* Высота, чтобы квадрат занимал всю высоту родительского элемента */
-    width: calc(100% - 350px); /* Ширина квадрата с учетом сдвига вправо */
-    background-color: rgba(255, 255, 255, 0.5); /* Прозрачный белый цвет с прозрачностью 50% */
-    z-index: 0; /* Под welcome-text и основным контейнером */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.welcome-container {
+    background-color: #f2f2f2;
+
+    color: #262322;
+
 }
 
-.overlay-box .welcome-text {
-    margin: 0;
-    padding: 0;
-}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Наши Партнеры</h1>
+    <div class="row">
+        {% for partner in partners %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if partner.photo %}
+                <img src="{{ partner.photo.url }}" class="card-img-top" alt="{{ partner.name }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">{{ partner.name }}</h5>
+                    <a href="{{ partner.url }}" class="btn btn-primary mt-auto" target="_blank">Перейти на сайт</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

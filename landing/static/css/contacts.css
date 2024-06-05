@@ -1,0 +1,47 @@
+.section {
+    margin-bottom: 1.5em;
+    /* Отступ между секциями */
+}
+
+.section-header {
+    background-color: #f8f9fa;
+    /* Светло-серый фон */
+    padding: 0.5em 0.75em;
+    /* Внутренний отступ */
+    border-radius: 0.25em;
+    /* Скругление углов */
+    font-size: 1.1em;
+    /* Размер шрифта */
+    font-weight: bold;
+    /* Полужирный шрифт */
+    color: #343a40;
+    /* Цвет текста */
+    margin-bottom: 0.5em;
+    /* Отступ снизу */
+}
+
+.section p {
+    margin-left: 1em;
+    /* Отступ слева */
+    margin-bottom: 0.5em;
+    /* Отступ снизу */
+    font-size: 1em;
+    /* Размер шрифта */
+}
+
+.section p strong {
+    font-weight: bold;
+    /* Полужирный шрифт для выделения */
+}
+
+.section a {
+    color: #007bff;
+    /* Цвет ссылки */
+    text-decoration: none;
+    /* Убираем подчеркивание */
+}
+
+.section a:hover {
+    text-decoration: underline;
+    /* Подчеркивание при наведении */
+}
