@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card" style="max-width: 800px; margin: auto;">
+    <div class="card-header" style="background-color: #F9FFFF;">
+      <h5 class="mb-0" style="color: #2A555E;">{{ specialty.name }}</h5>
+    </div>
+    <div class="card-body" style="background-color: white;">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="card-text"><strong style="color: #2A555E;">Срок обучения:</strong> {{ specialty.duration }}</p>
+          <p class="card-text"><strong style="color: #2A555E;">Стоимость обучения:</strong> {{ specialty.cost }}</p>
+          <p class="card-text"><strong style="color: #2A555E;">Экзамены:</strong></p>
+          <ul class="list-group">
+            {% for exam in specialty.exams.splitlines %}
+              <li class="list-group-item" style="background-color: white;"><i class="fas fa-chevron-right mr-1" style="color: #33BFCE;"></i> {{ exam }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <p class="card-text"><strong style="color: #2A555E;">Количество бюджетных мест:</strong> {{ specialty.budget_places }}</p>
+          <p class="card-text"><strong style="color: #2A555E;">Количество платных мест:</strong> {{ specialty.paid_places }}+</p>
+          <p class="card-text"><strong style="color: #2A555E;">Карьера:</strong></p>
+          <ul class="list-group">
+            {% for career_item in specialty.career.splitlines %}
+              <li class="list-group-item" style="background-color: white;"><i class="fas fa-chevron-right mr-1" style="color: #33BFCE;"></i> {{ career_item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <p class="card-text"><strong style="color: #2A555E;">Описание:</strong></p>
+          <p>{{ specialty.description }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-white text-left" style="background-color: #F9FFFF;">
+      <a href="{% url 'undergraduate_program' %}" class="btn text-white bg-secondary mb-4" style="font-weight: 600;">Назад к списку</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -2,16 +2,19 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-5">Структура института педагогики, психологии и социологии</h1>
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Структура института педагогики, психологии и социологии</h2>
+    </div>
     <div class="row">
         {% for department in departments %}
         <div class="col-md-12 mb-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm mt-2">
                 <div class="card-body">
-                    <h5 class="card-title">{{ department.name }}</h5>
-                    <p class="card-text"><strong>Заведующий:</strong> {{ department.head }}</p>
+                    <h5 class="card-title border-start-0">{{ department.name }}</h5>
+                    <p class="card-text mt-3"><strong>Заведующий:</strong> {{ department.head }}</p>
                     <p class="card-text">{{ department.description|truncatewords:30 }}</p>
-                    <a href="{% url 'department_detail' department.pk %}" class="btn btn-primary">Подробнее</a>
+                    <p class="card-text"><strong>Телефон:</strong> <a href="tel:{{ department.phone }}">{{ department.phone }}</a></p>
+                    <a href="{% url 'department_detail' department.pk %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
                 </div>
             </div>
         </div>

@@ -34,6 +34,6 @@ $(document).ready(function () {
         });
     } else {
         // Если флаг установлен и его срок действия не истек, просто устанавливаем текст
-        document.getElementById('typing').textContent = "Приветствуем вас";
+        document.getElementById('typing').textContent = "Рады видеть вас";
     }
 });

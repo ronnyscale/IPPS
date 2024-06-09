@@ -3,14 +3,18 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    
+<div class="container-fluid py-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Объявления</h2>
+    </div>
 </div>
 {% endblock %}
 
 {% block news %}
-<div class="container py-5 border-top">
-    <h2>Последние новости</h2>
+<div class="container-fluid py-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Последние новости</h2>
+    </div>
     <div class="row mt-4">
         {% for news_item in latest_news %}
             <div class="col-md-4 mb-4">
@@ -21,6 +25,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ news_item.title }}</h5>
                         <p class="card-text">{{ news_item.content }}</p>
+                        <a href="{% url 'news_detail' slug=news_item.slug %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
                     </div>
                 </div>
             </div>
@@ -28,3 +33,5 @@
     </div>
 </div>
 {% endblock %}
+
+

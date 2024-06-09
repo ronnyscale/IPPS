@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Мероприятия</h2>
+    </div>
+    <div class="row">
+        {% for event in events %}
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        {% if event.image %}
+                        <img src="{{ event.image.url }}" class="card-img" alt="{{ event.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.name }}</h5>
+                            <p class="card-text">{{ event.description }}</p>
+                            <p class="card-text"><i class="far fa-calendar-alt"></i> <strong>Дата проведения: {{ event.date|date:"d.m в H:i." }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

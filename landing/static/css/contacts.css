@@ -45,3 +45,16 @@
     text-decoration: underline;
     /* Подчеркивание при наведении */
 }
+
+/* Дополнительные стили для карточки */
+.linkss a {
+    font-weight: bold;
+    color: #6c757d;
+    /* Приятный серый цвет */
+    text-decoration: none;
+}
+
+.linkss a:hover {
+    color: #ff6347;
+    /* Цвет на наведение */
+}

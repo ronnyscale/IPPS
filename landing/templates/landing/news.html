@@ -2,15 +2,12 @@
 
 {% block title %}Главная{% endblock %}
 
-{% block content %}
-<div class="container py-5">
-    <h1>Последние новости</h1>
-</div>
-{% endblock %}
-
 {% block news %}
-<div class="container py-5 border-top">
-    <div class="row mt-4">
+<div class="container-fluid py-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Последние новости</h2>
+    </div>
+    <div class="row mt-5">
         {% for news_item in latest_news %}
             <div class="col-md-4 mb-4">
                 <div class="card">
@@ -19,7 +16,9 @@
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ news_item.title }}</h5>
-                        <p class="card-text">{{ news_item.content }}</p>
+                        <div class="border"></div>
+                        <p class="card-text mt-3">{{ news_item.content }}</p>
+                        <a href="{% url 'news_detail' slug=news_item.slug %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
                     </div>
                 </div>
             </div>

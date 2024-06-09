@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="text-center mb-4" style="font-size: 2rem; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Ученый совет института педагогики, психологии и социологии</h1>
+    <div class="row">
+      {% for member in academic_council_members %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="{{ member.photo.url }}" class="card-img-top" alt="{{ member.first_name }} {{ member.last_name }}" />
+            <div class="card-body">
+              <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+              <p class="card-text">
+                <strong>Ученые степени:</strong> {{ member.academic_titles.all|join:', ' }}
+              </p>
+              <p class="card-text">
+                <strong>Должность:</strong> {{ member.positions.all|join:', ' }}
+              </p>
+              <p class="card-text">{{ member.bio }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

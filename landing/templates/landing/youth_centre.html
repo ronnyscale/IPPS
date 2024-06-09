@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Молодежный центр</h2>
+    </div>
+    <div class="card mb-5">
+        <div class="row no-gutters">
+            <div class="col-md-5">
+                <img src="{% static 'images/mc.jpg' %}" class="card-img" alt="Молодежный центр" style="height: 100%; object-fit: cover;">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body linkss">
+                    <p class="card-text"><strong>Руководитель МЦ ИППС:</strong> Албу Анастасия</p>
+                    <p class="card-text">Email: <a href="mailto:anastasialbu2003@gmail.com">anastasialbu2003@gmail.com</a>, страница ВКонтакте: <a href="https://vk.com/anastasialbu" target="_blank">https://vk.com/anastasialbu</a></p>
+                    <p class="card-text">Работу молодежного центра курирует заместитель директора по воспитательной работе<strong> Ткачева Анна Владимировна.</strong></p>
+                    <p class="card-text"><a href="tel:+7(391)2469932">+7 (391) 2469932</a>, Email: <a href="mailto:atkacheva@sfu-kras.ru">atkacheva@sfu-kras.ru</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="news-header mb-4 border-bottom">
+        <h3 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Отделы молодежного центра</h3>
+    </div>
+    <div class="row">
+        {% for division in youth_divisions %}
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ division.name }}</h5>
+                            <p class="card-text">Деятельность:</p>
+                            <ul class="card-text">
+                                {% for activity in division.activities.splitlines %}
+                                    <li>{{ activity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

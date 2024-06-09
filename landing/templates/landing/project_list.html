@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Проекты</h2>
+    </div>
+    
+    <!-- Кнопки с годами -->
+    <div class="text-center mb-4">
+        {% for year in years %}
+            <a href="?year={{ year|date:'Y' }}" style="font-weight: 500;" class="btn btn-secondary {% if year|date:'Y' == selected_year %}active{% endif %}">{{ year|date:'Y' }}</a>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        {% for project in projects %}
+            <div class="col-12 mb-4">
+                <div class="card" style="background-color: #F9FFFF;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #2A555E;">{{ project.name }}</h5>
+                        <div class="border"></div>
+                        <div class="card-text mt-4">
+                            <p><strong>Руководитель:</strong> {{ project.head }}</p>
+                            <p><strong>Участники:</strong> {% for participant in project.participants.all %}{{ participant }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                            <p><strong>Дата:</strong> {{ project.date|naturalday }}</p>
+                            <p>{{ project.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

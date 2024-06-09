@@ -8,8 +8,8 @@
 
     <!-- Дирекция ИППС -->
     <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-            <h5 class="mb-0">Дирекция ИППС</h5>
+        <div class="card-header" style="background-color: #F9FFFF;">
+            <h5 class="mb-0" style="color: #2A555E;">Дирекция ИППС</h5>
         </div>
         <div class="card-body">
             <p><strong>Адрес:</strong> 660041, Красноярский край, г. Красноярск, пр. Свободный, 79, ауд. 13–13</p>
@@ -71,7 +71,7 @@
 
 
     <!-- Кафедры -->
-    {% if department %}
+    {% if departments.all.count > 0 %}
     <div class="card mb-4 shadow-sm">
         <div class="card-header">
             <h5 class="mb-0">Кафедры</h5>
@@ -79,7 +79,7 @@
         <div class="card-body">
             {% for department in departments %}
             <div class="mb-3">
-                <h6>{{ department.name }}</h6>
+                <h6 class="section-header">{{ department.name }}</h6>
                 <p><strong>Зав. кафедрой:</strong> {{ department.head }}</p>
                 <p><strong>Адрес:</strong> {{ department.address }}</p>
                 <p><strong>Телефон:</strong> {{ department.phone }}</p>

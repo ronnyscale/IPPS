@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">{{ department.name }}</h1>
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">{{ department.name }}</h2>
+    </div>
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
             <p class="card-text"><strong>Заведующий:</strong> {{ department.head }}</p>
@@ -12,6 +14,28 @@
             <p><strong>Email:</strong> <a href="mailto:{{ department.email }}">{{ department.email }}</a></p>
         </div>
     </div>
-    <a href="{% url 'structure' %}" class="btn btn-secondary">Назад к списку</a>
+
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Коллектив кафедры</h2>
+    </div>
+    <div class="row">
+        {% for member in members %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ member.photo.url }}" class="card-img-top" alt="{{ member.first_name }} {{ member.last_name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+                    <p class="card-text">{{ member.email }}</p>
+                    <p class="card-text">
+                        {% for position in member.positions.all %}
+                            {{ position.title }}
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'structure' %}" class="btn text-white bg-secondary mb-4" style="font-weight: 600;">Назад к списку</a>
 </div>
 {% endblock %}

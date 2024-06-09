@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Уровень высшего образования</h2>
+    </div>
+    
+    <!-- Кнопки для фильтрации по уровню образования -->
+    <div class="text-center mb-4">
+        <a href="?level=B" class="btn btn-secondary {% if selected_level == 'B' %}active{% endif %}">Бакалавриат</a>
+        <a href="?level=M" class="btn btn-secondary {% if selected_level == 'M' %}active{% endif %}">Магистратура</a>
+        <a href="?level=P" class="btn btn-secondary {% if selected_level == 'P' %}active{% endif %}">Аспирантура</a>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card-deck custom-card-deck">
+                <div class="card h-100 mb-4">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" style="color: #2A555E">Правила приема</h5>
+                        <p class="card-text">Узнайте правила приема на нашу программу.</p>
+                        <div class="mt-auto">
+                            <a href="{{ admission_rules_link }}" target="_blank" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card h-100 mb-4">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" style="color: #2A555E">План приема</h5>
+                        <p class="card-text">Просмотрите план приема на текущий учебный год.</p>
+                        <div class="mt-auto">
+                            <a href="{{ admission_plan_link }}" target="_blank" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+                {% for specialty in specialties %}
+                    <div class="col-12 mb-4">
+                        <div class="card" style="background-color: #F9FFFF;">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: #2A555E;">{{ specialty.name }}</h5>
+                                <div class="border"></div>
+                                <div class="card-text mt-4">
+                                    <p><strong>Срок обучения:</strong> {{ specialty.duration }}</p>
+                                    <p><strong>Стоимость обучения:</strong> {{ specialty.cost }}</p>
+                                    <p><strong>Экзамены:</strong> {{ specialty.exams }}</p>
+                                    <p><strong>Количество бюджетных мест:</strong> {{ specialty.budget_places }}</p>
+                                    <p><strong>Количество платных мест:</strong> {{ specialty.paid_places }}</p>
+                                    <p><strong>Карьера:</strong> {{ specialty.career }}</p>
+                                    <p>{{ specialty.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

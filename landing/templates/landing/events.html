@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Мероприятия</h2>
+    </div>
+    
+    <!-- Кнопки с годами -->
+    <div class="text-center mb-4">
+        {% for event in events %}
+            <a href="?event={{ event.id }}" style="font-weight: 500;" class="btn btn-secondary {% if event.id == selected_event_id %}active{% endif %}">{{ event.name }}</a>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        {% for event in events %}
+            <div class="col-12 mb-4">
+                <div class="card" style="background-color: #F9FFFF;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #2A555E;">{{ event.name }}</h5>
+                        <div class="border"></div>
+                        <div class="card-text mt-4">
+                            <p><strong>Дата:</strong> {{ event.date|date:"d F Y" }}</p>
+                            <p><strong>Место проведения:</strong> {{ event.place }}</p>
+                            <p><strong>Сайт конференции:</strong> <a href="{{ event.url_conf }}">{{ event.url_conf }}</a></p>
+                            <p><strong>Ссылка на докладчиков:</strong> <a href="{{ event.url_speakers }}">{{ event.url_speakers }}</a></p>
+                            <p>{{ event.description }}</p>
+                            <h4><strong>Секции конференции:</strong></h4>
+                            <ul style="list-style-type: none;">
+                                {% for section in event.sections.splitlines %}
+                                    <li>{{ section }}</li><br>
+                                {% endfor %}
+                            </ul>
+                            <h4><strong>Программный комитет:</strong></h4>
+                            <ul style="list-style-type: none;">
+                                {% for member in event.program_committee.splitlines %}
+                                    <li>{{ member }}</li><br>
+                                {% endfor %}
+                            </ul>
+                            <h4><strong>Оргкомитет:</strong></h4>
+                            <ul style="list-style-type: none;">
+                                {% for member in event.organizing_committee.splitlines %}
+                                    <li>{{ member }}</li><br>
+                                {% endfor %}
+                            </ul>
+                            <h4><strong>Секретариат:</strong></h4>
+                            <ul style="list-style-type: none;">
+                                {% for member in event.secretariat.splitlines %}
+                                    <li>{{ member }}</li><br>
+                                {% endfor %}
+                            </ul>
+                            <h4><strong>Спикеры:</strong></h4>
+                            <div class="row">
+                                {% for speaker in event.speakers.all %}
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card">
+                                            <img src="{{ speaker.photo.url }}" class="card-img-top" alt="{{ speaker.first_name }} {{ speaker.last_name }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ speaker.first_name }} {{ speaker.last_name }} {% if speaker.middle_name %}{{ speaker.middle_name }}{% endif %}</h5>
+                                                <p class="card-text">{{ speaker.bio }}</p>
+                                                <!-- Должность докладчика -->
+                                                {% if speaker.positions.all.count > 0 %}
+                                                    <p class="card-text"><strong>Должность:</strong> {% for position in speaker.positions.all %}{{ position.title }}{% endfor %}</p>
+                                                {% endif %}
+                                                <!-- Учёное звание докладчика -->
+                                                {% if speaker.academic_titles.all.count > 0 %}
+                                                    <p class="card-text"><strong>Учёное звание:</strong> {% for title in speaker.academic_titles.all %}{{ title.title }}{% endfor %}</p>
+                                                {% endif %}
+                                                <p class="card-text"><strong>Email:</strong> <a href="mailto:{{ speaker.email }}">{{ speaker.email }}</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            {% if event.presentations.all.count > 0 %}
+                            <h4><strong>Презентации:</strong></h4>
+                            <ul style="list-style-type: none;">
+                                {% for presentation in event.presentations.all %}
+                                    <li><a href="{{ presentation.file.url }}">{{ presentation.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
