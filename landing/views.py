@@ -132,3 +132,67 @@ def supervisor_navigator(request):
     # Путь к PDF-файлу
     pdf_url = "/static/files/supervisor_navigator.pdf"
     return render(request, "landing/supervisor_navigator.html", {"pdf_url": pdf_url})
+
+
+def schedule_view(request, schedule_type):
+    education_level = request.GET.get("level", "B")
+    form = request.GET.get("form", "FT")
+    course = request.GET.get("course")
+    group = request.GET.get("group")
+
+    filters = {
+        "schedule_type": schedule_type,
+        "education_level": education_level,
+        "form": form,
+    }
+
+    if course:
+        filters["course"] = course
+
+    if group:
+        filters["group"] = group
+
+    schedules = Schedule.objects.filter(**filters) if course and group else []
+
+    courses = (
+        Schedule.objects.filter(
+            schedule_type=schedule_type, education_level=education_level, form=form
+        )
+        .values_list("course", flat=True)
+        .distinct()
+    )
+
+    groups = (
+        Schedule.objects.filter(
+            schedule_type=schedule_type,
+            education_level=education_level,
+            form=form,
+            course=course,
+        )
+        .values_list("group", flat=True)
+        .distinct()
+        if course
+        else []
+    )
+
+    context = {
+        "schedules": schedules,
+        "selected_level": education_level,
+        "selected_form": form,
+        "schedule_type": schedule_type,
+        "courses": courses,
+        "groups": groups,
+        "selected_course": course,
+        "selected_group": group,
+    }
+
+    return render(request, "landing/schedule.html", context)
+
+
+def additional_education_programs(request):
+    additional_education_programs = AdditionalEducationProgram.objects.all()
+    return render(
+        request,
+        "landing/additional_programs.html",
+        {"additional_education_programs": additional_education_programs},
+    )

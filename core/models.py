@@ -237,3 +237,91 @@ class Speciality(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Schedule(models.Model):
+    EDUCATION_LEVEL_CHOICES = [
+        ("B", "Бакалавриат"),
+        ("M", "Магистратура"),
+        ("S", "ГИА"),  # ГИА может быть представлено как 'S'
+    ]
+
+    ASSESSMENT_TYPE_CHOICES = [
+        ("exam", "Экзамен"),
+        ("credit", "Зачет"),
+    ]
+
+    FORM_CHOICES = [
+        ("FT", "Очная"),
+        ("PT", "Заочная"),
+        ("FT_PT", "Очно-заочная"),
+    ]
+
+    TYPE_CHOICES = [
+        ("interim", "Промежуточная аттестация"),
+        ("retake", "Пересдача"),
+    ]
+
+    education_level = models.CharField(
+        max_length=1,
+        choices=EDUCATION_LEVEL_CHOICES,
+        verbose_name="Уровень образования",
+    )
+
+    assessment_type = models.CharField(
+        max_length=10,
+        choices=ASSESSMENT_TYPE_CHOICES,
+        verbose_name="Тип проведения",
+    )
+
+    form = models.CharField(
+        max_length=5, choices=FORM_CHOICES, verbose_name="Форма обучения"
+    )
+    schedule_type = models.CharField(
+        max_length=10, choices=TYPE_CHOICES, verbose_name="Тип расписания"
+    )
+    group = models.CharField(max_length=100, verbose_name="Группа")
+    course = models.PositiveIntegerField(verbose_name="Курс")
+    subject = models.CharField(max_length=255, verbose_name="Название предмета")
+    date = models.DateField(verbose_name="Дата")
+    semester = models.PositiveIntegerField(verbose_name="Семестр")
+    teacher = models.ForeignKey("Person",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True, verbose_name="Преподаватель")
+    place = models.CharField(max_length=255, verbose_name="Место проведения")
+
+    def __str__(self):
+        return f"{self.subject} - {self.group} - {self.date}"
+
+    class Meta:
+        ordering = ['course']
+
+
+# models.py
+
+
+
+class AdditionalEducationProgram(models.Model):
+    title = models.CharField(max_length=100, verbose_name="Название программы")
+    program_director = models.ForeignKey("Person",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True, verbose_name="Руководитель программы"
+    )
+    duration = models.CharField(max_length=100, verbose_name="Сроки проведения")
+    program_type = models.CharField(max_length=100, verbose_name="Вид программы")
+    form_of_education = models.CharField(
+        max_length=100, verbose_name="Форма проведения"
+    )
+    cost = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="Стоимость обучения"
+    )
+    details = models.TextField(verbose_name="Описание")
+    application_link = models.URLField(verbose_name="Ссылка на подачу заявки")
+    contact_info = models.CharField(
+        max_length=100, verbose_name="Контактная информация"
+    )
+
+    def __str__(self):
+        return self.title

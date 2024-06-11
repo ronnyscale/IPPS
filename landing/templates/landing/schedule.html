@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">
+            {% if schedule_type == 'interim' %}
+                Расписание промежуточной аттестации
+            {% elif schedule_type == 'retake' %}
+                Расписание пересдач
+            {% endif %}
+        </h2>
+    </div>
+
+    <!-- Кнопки для выбора уровня образования и формы обучения -->
+    <div class="text-center mb-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="btn-group mx-auto" role="group">
+                        <a href="?level=B&form={{ selected_form }}" class="btn btn-secondary {% if selected_level == 'B' %}active{% endif %}">Бакалавриат</a>
+                        <a href="?level=M&form={{ selected_form }}" class="btn btn-secondary {% if selected_level == 'M' %}active{% endif %}">Магистратура</a>
+                        <a href="?level=S&form={{ selected_form }}" class="btn btn-secondary {% if selected_level == 'S' %}active{% endif %}">ГИА</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="btn-group mx-auto" role="group">
+                        <a href="?level={{ selected_level }}&form=FT" class="btn btn-secondary {% if selected_form == 'FT' %}active{% endif %}">Очная</a>
+                        <a href="?level={{ selected_level }}&form=PT" class="btn btn-secondary {% if selected_form == 'PT' %}active{% endif %}">Заочная</a>
+                        <a href="?level={{ selected_level }}&form=FT_PT" class="btn btn-secondary {% if selected_form == 'FT_PT' %}active{% endif %}">Очно-заочная</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Выпадающие списки для выбора курса и группы -->
+    {% if not selected_course and not selected_group %}
+        <div class="row">
+            {% for course in courses %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color: #2A555E;">Курс {{ course }}</h5>
+                            <div class="border"></div>
+                            <a href="?level={{ selected_level }}&form={{ selected_form }}&course={{ course }}" class="btn text-white bg-secondary mt-4" style="font-weight: 600;">Выбрать курс</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% elif selected_course and not selected_group %}
+        <div class="row">
+            {% for group in groups %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title" style="color: #2A555E;">Группа {{ group }}</h5>
+                            <div class="border"></div>
+                            <a href="?level={{ selected_level }}&form={{ selected_form }}&course={{ selected_course }}&group={{ group }}" class="btn text-white bg-secondary mt-4" style="font-weight: 600;">Выбрать группу</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            {% for schedule in schedules %}
+                <div class="col-12 mb-4">
+                    <div class="card" style="background-color: #F9FFFF;">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #2A555E;">{{ schedule.subject }}</h5>
+                            <div class="border"></div>
+                            <div class="card-text mt-4">
+                                <p><strong>Группа:</strong> {{ schedule.group }}</p>
+                                <p><strong>Дата:</strong> {{ schedule.date|naturalday }}</p>
+                                <p><strong>Тип оценки:</strong> {{ schedule.get_assessment_type_display }}</p>
+                                <p><strong>Преподаватель:</strong> {{ schedule.teacher }}</p>
+                                <p><strong>Место проведения:</strong> {{ schedule.place }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

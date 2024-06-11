@@ -5,3 +5,45 @@ h1, h2, h3, h4, h5 {
 .pdf-container {
     margin-bottom: 50px;
 }
+
+.scrolling-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Добавляет плавную прокрутку на мобильных устройствах */
+}
+
+.scrolling-wrapper .btn {
+    flex: 0 0 auto;
+    /* Устанавливает фиксированную ширину для кнопок */
+    margin-right: 10px;
+    /* Добавляет отступ между кнопками */
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    margin-top: 5px;
+}
+
+/* Дорожка */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Бегунок */
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+}
+
+/* Наведение на бегунок */
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+.justify-center {
+    justify-content: center;
+}
+

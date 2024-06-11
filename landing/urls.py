@@ -21,7 +21,11 @@ urlpatterns = [
     path("specialty/<int:specialty_id>/", specialty_detail, name="specialty_detail"),
     path("project-list/", project_list, name="project_list"),
     path("events/", events, name="events"),
+    path("supervisor-navigator/", supervisor_navigator, name="supervisor_navigator"),
+    path("schedule/<str:schedule_type>/", schedule_view, name="schedule"),
     path(
-        "supervisor-navigator/", supervisor_navigator, name="supervisor_navigator"
+        "additional-education-programs/",
+        additional_education_programs,
+        name="additional_programs",
     ),
 ]

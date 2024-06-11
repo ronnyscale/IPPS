@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Дополнительные программы</h2>
+    </div>
+    <div class="row mt-4">
+        {% for program in additional_education_programs %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ program.title }}</h5>
+                        <div class="border"></div>
+                        <p class="card-text mt-4">Сроки проведения: {{ program.duration }}</p>
+                        <p class="card-text">Руководитель программы: <strong>{{ program.program_director }}</strong></p>
+                        <p class="card-text">Вид программы: {{ program.program_type }}</p>
+                        <p class="card-text">Форма проведения: {{ program.form_of_education }}</p>
+                        <p class="card-text">Стоимость обучения: {{ program.cost }} ₽</p>
+                        <div class="border"></div>
+                        <a href="{{ program.application_link }}" class="btn text-white bg-secondary mt-4" style="font-weight: 600;">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -75,3 +75,15 @@ class SpecialtyAdmin(admin.ModelAdmin):
 class PresentationAdmin(admin.ModelAdmin):
     list_display = ("title",)
     search_fields = ["title"]
+
+
+@admin.register(Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ("subject", "group", "date")
+    search_fields = ["subject", "group", "date"]
+
+
+@admin.register(AdditionalEducationProgram)
+class AdditionalEducationProgramAdmin(admin.ModelAdmin):
+    list_display = ("title", "program_type")
+    search_fields = ["title", "program_type"]

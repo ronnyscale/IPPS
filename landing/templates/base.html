@@ -61,9 +61,9 @@
                                         Обучение
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Бакалавриат</a></li>
-                                        <li><a class="dropdown-item" href="#">Магистратура</a></li>
-                                        <li><a class="dropdown-item" href="#">Дополнительное образование</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'schedule' 'interim' %}">Промежуточная аттестация</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'schedule' 'retake' %}">Пересдача</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'additional_programs' %}">Дополнительное образование</a></li>
                                         <li><a class="dropdown-item" href="https://edu.sfu-kras.ru/programs/cost">Стоимость обучения</a></li>
                                         <li><a class="dropdown-item" href="https://edu.sfu-kras.ru/node/5614">Перевод на бюджет</a></li>
                                     </ul>
