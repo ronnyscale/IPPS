@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
 from core.models import News
 from datetime import datetime, timedelta
@@ -6,11 +7,31 @@ from core.models import *
 
 
 def index(request):
-    # Получаем дату, предшествующую сегодняшнему дню на 7 дней
-    week_ago = datetime.now() - timedelta(days=31)
+    # Получаем дату, предшествующую сегодняшнему дню на 30 дней
+    week_ago = datetime.now() - timedelta(days=30)
+
     # Получаем все новости, опубликованные за последнюю неделю
-    latest_news = News.objects.filter(date__gte=week_ago)
-    return render(request, "landing/index.html", {"latest_news": latest_news})
+    latest_news = News.objects.filter(date__gte=week_ago).order_by("-date")
+    announcements = Announcement.objects.all().order_by("-created_at")
+
+    # Пагинация для новостей
+    news_paginator = Paginator(latest_news, 3)  # 3 новости на страницу
+    news_page_number = request.GET.get("news_page")
+    news_page_obj = news_paginator.get_page(news_page_number)
+
+    # Пагинация для объявлений
+    announcements_paginator = Paginator(announcements, 3)  # 3 объявления на страницу
+    announcements_page_number = request.GET.get("announcements_page")
+    announcements_page_obj = announcements_paginator.get_page(announcements_page_number)
+
+    return render(
+        request,
+        "landing/index.html",
+        {
+            "news_page_obj": news_page_obj,
+            "announcements_page_obj": announcements_page_obj,
+        },
+    )
 
 
 def about(request):
@@ -18,10 +39,23 @@ def about(request):
 
 
 def news(request):
-    # Получаем дату, предшествующую сегодняшнему дню на 7 дней
-    week_ago = datetime.now() - timedelta(days=31)
-    # Получаем все новости, опубликованные за последнюю неделю
-    latest_news = News.objects.filter(date__gte=week_ago)
+    # Получаем все новости
+    all_news = News.objects.all()
+
+    # Инициализируем Paginator, указывая количество новостей на странице (6)
+    paginator = Paginator(all_news, 6)
+
+    page_number = request.GET.get("page")
+    try:
+        # Получаем страницу
+        latest_news = paginator.page(page_number)
+    except PageNotAnInteger:
+        # Если номер страницы не является целым числом, выводим первую страницу
+        latest_news = paginator.page(1)
+    except EmptyPage:
+        # Если страница пуста, выводим последнюю страницу
+        latest_news = paginator.page(paginator.num_pages)
+
     return render(request, "landing/news.html", {"latest_news": latest_news})
 
 

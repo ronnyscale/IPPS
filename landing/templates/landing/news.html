@@ -1,28 +1,66 @@
-{% extends "base.html" %}
-
-{% block title %}Главная{% endblock %}
+{% extends 'base.html' %}
+{% block title %}
+  Новости
+{% endblock %}
 
 {% block news %}
-<div class="container-fluid py-5">
+  <div class="container-fluid py-5">
     <div class="news-header mb-4 border-bottom">
-        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Последние новости</h2>
+      <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Последние новости</h2>
     </div>
     <div class="row mt-4">
-        {% for news_item in latest_news %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    {% if news_item.image %}
-                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ news_item.title }}</h5>
-                        <div class="border"></div>
-                        <p class="card-text mt-3">{{ news_item.content }}</p>
-                        <a href="{% url 'news_detail' slug=news_item.slug %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
-                    </div>
-                </div>
+      {% for news_item in latest_news %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            {% if news_item.image %}
+              <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}" />
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ news_item.title }}</h5>
+              <div class="border"></div>
+              <p class="card-text mt-3">{{ news_item.content }}</p>
+              <a href="{% url 'news_detail' slug=news_item.slug %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
             </div>
-        {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
     </div>
-</div>
+    {% if latest_news.has_other_pages %}
+      <nav aria-label="News pagination">
+        <ul class="pagination justify-content-center">
+          {% if latest_news.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ latest_news.previous_page_number }}#news" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+          {% endif %}
+
+          {% for page_num in latest_news.paginator.page_range %}
+            {% if latest_news.number == page_num %}
+              <li class="page-item active">
+                <a class="page-link" href="#news">{{ page_num }}</a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_num }}#news">{{ page_num }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if latest_news.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ latest_news.next_page_number }}#news" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
 {% endblock %}

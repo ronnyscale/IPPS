@@ -87,3 +87,9 @@ class ScheduleAdmin(admin.ModelAdmin):
 class AdditionalEducationProgramAdmin(admin.ModelAdmin):
     list_display = ("title", "program_type")
     search_fields = ["title", "program_type"]
+
+
+@admin.register(Announcement)
+class AnnouncementAdmin(admin.ModelAdmin):
+    list_display = ("title", "content")
+    search_fields = ["title", "content"]

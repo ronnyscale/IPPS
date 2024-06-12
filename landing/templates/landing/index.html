@@ -7,23 +7,89 @@
     <div class="news-header mb-4 border-bottom">
         <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Объявления</h2>
     </div>
+    <div class="row mt-4" id="announcements">
+        {% for announcement in announcements_page_obj %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ announcement.title }}</h5>
+                        <p class="card-text">{{ announcement.content }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if announcements_page_obj.has_other_pages %}
+        <nav aria-label="Announcements pagination">
+            <ul class="pagination justify-content-center">
+                {% if announcements_page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?announcements_page={{ announcements_page_obj.previous_page_number }}#announcements" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for page_num in announcements_page_obj.paginator.page_range %}
+                    {% if announcements_page_obj.number == page_num %}
+                        <li class="page-item active"><a class="page-link" href="#announcements">{{ page_num }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?announcements_page={{ page_num }}#announcements">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if announcements_page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?announcements_page={{ announcements_page_obj.next_page_number }}#announcements" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 </div>
 {% endblock %}
 
 {% block news %}
+
+
 <div class="container-fluid py-5">
     <div class="news-header mb-4 border-bottom">
         <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Последние новости</h2>
     </div>
-    <div class="row mt-4">
-        {% for news_item in latest_news %}
+    <div class="row mt-4" id="news">
+        {% for news_item in news_page_obj %}
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    {% if news_item.image %}
-                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}">
-                    {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">{{ news_item.title }}</h5>
+                        <div class="d-flex">
+                            <div class="date-sticker" style="font-weight: 700; color: #2A555E;">
+                                <div class="date-day">{{ news_item.date|date:"d" }}</div>
+                                <div class="date-month">{{ news_item.date|date:"M" }}</div>
+                            </div>
+                            <div class="theme ml-2 d-flex align-items-center">
+                                {% if news_item.theme %}
+                                    <span class="badge badge-secondary" style="margin-left: 10px; color: black; font-weight: 600;">{{ news_item.theme }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if news_item.image %}
+                            <img src="{{ news_item.image.url }}" class="card-img-top mt-3" alt="{{ news_item.title }}">
+                        {% endif %}
+                        <h5 class="card-title mt-3">{{ news_item.title }}</h5>
                         <p class="card-text">{{ news_item.content }}</p>
                         <a href="{% url 'news_detail' slug=news_item.slug %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
                     </div>
@@ -31,7 +97,48 @@
             </div>
         {% endfor %}
     </div>
+    {% if news_page_obj.has_other_pages %}
+        <nav aria-label="News pagination">
+            <ul class="pagination justify-content-center">
+                {% if news_page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?news_page={{ news_page_obj.previous_page_number }}#news" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for page_num in news_page_obj.paginator.page_range %}
+                    {% if news_page_obj.number == page_num %}
+                        <li class="page-item active"><a class="page-link" href="#news">{{ page_num }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?news_page={{ page_num }}#news">{{ page_num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if news_page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?news_page={{ news_page_obj.next_page_number }}#news" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 </div>
-{% endblock %}
+{% endblock news %}
 
 

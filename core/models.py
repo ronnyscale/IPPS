@@ -10,6 +10,7 @@ class News(models.Model):
     content = models.TextField(verbose_name="Содержание")
     date = models.DateTimeField(auto_now_add=True, verbose_name="Дата")
     image = models.ImageField(upload_to='news_images/', verbose_name="Изображение",null=True, blank=True)
+    theme = models.CharField(max_length=200, verbose_name="Тема", null=True, blank=True)
     slug = AutoSlugField(
         populate_from="slugify_function", unique=True, always_update=True, default=" "
     )
@@ -298,10 +299,6 @@ class Schedule(models.Model):
         ordering = ['course']
 
 
-# models.py
-
-
-
 class AdditionalEducationProgram(models.Model):
     title = models.CharField(max_length=100, verbose_name="Название программы")
     program_director = models.ForeignKey("Person",
@@ -322,6 +319,15 @@ class AdditionalEducationProgram(models.Model):
     contact_info = models.CharField(
         max_length=100, verbose_name="Контактная информация"
     )
+
+    def __str__(self):
+        return self.title
+
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Заголовок")
+    content = models.TextField(verbose_name="Содержание")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создано")
 
     def __str__(self):
         return self.title
