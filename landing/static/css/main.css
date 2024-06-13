@@ -88,3 +88,69 @@ h5 {
     display: flex;
     align-items: center;
 }
+
+.pagination .page-item.active .page-link {
+    background-color: #2A555E;
+    /* Цвет активной страницы */
+    border-color: #2A555E;
+    /* Цвет рамки активной страницы */
+    color: #ffffff;
+    /* Цвет текста активной страницы */
+}
+
+.pagination .page-link {
+    color: #0000FF;
+    /* Цвет текста неактивных страниц (синий) */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    /* Цвет текста для неактивных страниц */
+}
+
+.pagination .page-link:hover {
+    background-color: #2A555E;
+    /* Цвет фона при наведении */
+    color: #ffffff;
+    /* Цвет текста при наведении */
+}
+
+.pagination .page-item .page-link {
+    border: 1px solid #2A555E;
+    /* Цвет рамки всех кнопок */
+    transition: all 0.3s ease;
+    /* Плавный переход всех свойств */
+}
+
+.pagination .page-item:not(.active) .page-link {
+    color: #2A555E;
+    /* Цвет текста неактивных страниц */
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #2A555E;
+    /* Цвет фона при наведении на стрелки */
+    color: #ffffff;
+    /* Цвет текста при наведении на стрелки */
+}
+.btn-details {
+    font-weight: 600;
+    color: #000000;
+    /* черный текст */
+    background-color: #ffffff;
+    /* белый фон */
+    border: 2px solid #2A555E;
+    /* черная обводка */
+    transition: all 0.3s ease;
+    /* плавный переход всех свойств */
+}
+
+.btn-details:hover {
+    background-color: #2A555E;
+    /* темный фон при наведении */
+    color: #ffffff;
+    /* белый текст при наведении */
+    border-color: #2A555E;
+    /* темная обводка при наведении */
+}
+

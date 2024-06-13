@@ -17,6 +17,10 @@ class News(models.Model):
 
     def slugify_function(self):
         return unidecode(self.title)
+    
+    class Meta:
+        verbose_name = "Новость"
+        verbose_name_plural = "Новости"
 
     def __str__(self):
         return self.title
@@ -25,6 +29,10 @@ class News(models.Model):
 # учёные звания
 class AcademicTitle(models.Model):
     title = models.CharField(max_length=255, verbose_name="Учёное звание/степень")
+    
+    class Meta:
+        verbose_name = "Учёное звание"
+        verbose_name_plural = "Учёные звания"
 
     def __str__(self):
         return self.title
@@ -33,6 +41,10 @@ class AcademicTitle(models.Model):
 # должности
 class Position(models.Model):
     title = models.CharField(max_length=255, verbose_name="Должность")
+    
+    class Meta:
+        verbose_name = "Должность"
+        verbose_name_plural = "Должности"
 
     def __str__(self):
         return self.title
@@ -42,9 +54,8 @@ class Position(models.Model):
 class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(verbose_name="Email", unique=True)  # Добавляем поле email
-    password = models.CharField(max_length=128, verbose_name="Пароль")  # Добавляем поле password
-    password_confirmation = models.CharField(max_length=128, verbose_name="Подтверждение пароля")  # Поле для подтверждения пароля
-    
+    username = models.CharField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
     first_name = models.CharField(max_length=150, verbose_name="Имя")
     last_name = models.CharField(max_length=150, verbose_name="Фамилия")
     middle_name = models.CharField(max_length=150, verbose_name="Отчество", blank=True)
@@ -61,6 +72,10 @@ class Person(models.Model):
     departments = models.ManyToManyField(
         "Department", blank=True
     )
+    
+    class Meta:
+        verbose_name = "Пользователь сайта"
+        verbose_name_plural = "Пользователи сайта"
 
     def __str__(self):
         return f"{self.last_name} {self.first_name} {self.middle_name}"
@@ -84,6 +99,10 @@ class Department(models.Model):
     members = models.ManyToManyField(
         Person, related_name="department_members", blank=True
     )
+    
+    class Meta:
+        verbose_name = "Кафедра"
+        verbose_name_plural = "Кафедры"
 
     def __str__(self):
         return self.name
@@ -95,6 +114,10 @@ class AcademicCouncil(models.Model):
     members = models.ManyToManyField(
         Person, related_name="council_members", blank=True, verbose_name="Участники"
     )
+    
+    class Meta:
+        verbose_name = "Ученый совет"
+        verbose_name_plural = "Ученый совет"
 
     def __str__(self):
         return self.name
@@ -109,6 +132,10 @@ class Presentation(models.Model):
     )
     title = models.CharField(max_length=200, verbose_name="Заголовок презентации")
     file = models.FileField(upload_to="presentations/", verbose_name="Файл презентации")
+    
+    class Meta:
+        verbose_name = "Презентация"
+        verbose_name_plural = "Презентации"
 
     def __str__(self):
         return self.title
@@ -144,6 +171,10 @@ class Event(models.Model):
     )
     secretariat = models.TextField(verbose_name="Секретариат", null=True, blank=True)
     speakers = models.ManyToManyField("Person", verbose_name="Докладчики", blank=True)
+    
+    class Meta:
+        verbose_name = "Мероприятие"
+        verbose_name_plural = "Мероприятия"
 
     def __str__(self):
         return self.name
@@ -155,6 +186,10 @@ class StudentLifeEvent(models.Model):
     description = models.TextField(verbose_name="Содержание")
     date = models.DateTimeField(verbose_name="Дата")
     image = models.ImageField(upload_to='event_images/', verbose_name="Изображение",null=True, blank=True)
+    
+    class Meta:
+        verbose_name = "Мероприятие студенческой жизни"
+        verbose_name_plural = "Мероприятия студенческой жизни"
 
     def __str__(self):
         return self.name
@@ -176,6 +211,10 @@ class Project(models.Model):
         Person, related_name="project_participants", blank=True, verbose_name="Участники"
     )
     date = models.DateTimeField(verbose_name="Дата")
+    
+    class Meta:
+        verbose_name = "Проект"
+        verbose_name_plural = "Проекты"
 
     def __str__(self):
         return self.name
@@ -186,6 +225,10 @@ class Partner(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название")
     photo = models.ImageField(upload_to="partner_photos", blank=True, null=True, verbose_name="Изображение")
     url = models.URLField(verbose_name="Ссылка")
+    
+    class Meta:
+        verbose_name = "Партнер"
+        verbose_name_plural = "Партнеры"
 
     def __str__(self):
         return self.name
@@ -205,6 +248,10 @@ class YouthDivision(models.Model):
 
     def activities_list(self):
         return self.activities.split('\n')
+    
+    class Meta:
+        verbose_name = "Молодежный отдел"
+        verbose_name_plural = "Молодежные отделы"
 
     def __str__(self):
         return self.name
@@ -235,6 +282,10 @@ class Speciality(models.Model):
         default=BACHELOR,
         verbose_name="Уровень образования"
     )
+    
+    class Meta:
+        verbose_name = "Специальность"
+        verbose_name_plural = "Специальности"
 
     def __str__(self):
         return self.name
@@ -297,6 +348,8 @@ class Schedule(models.Model):
 
     class Meta:
         ordering = ['course']
+        verbose_name = "Расписание ПА/ПЕРЕСДАЧ"
+        verbose_name_plural = "Расписания ПА/ПЕРЕСДАЧ"
 
 
 class AdditionalEducationProgram(models.Model):
@@ -319,6 +372,10 @@ class AdditionalEducationProgram(models.Model):
     contact_info = models.CharField(
         max_length=100, verbose_name="Контактная информация"
     )
+    
+    class Meta:
+        verbose_name = "Дополнительное образование"
+        verbose_name_plural = "Дополнительное образование"
 
     def __str__(self):
         return self.title
@@ -328,6 +385,10 @@ class Announcement(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержание")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создано")
+
+    class Meta:
+        verbose_name = "Объявление"
+        verbose_name_plural = "Объявления"
 
     def __str__(self):
         return self.title

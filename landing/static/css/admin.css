@@ -1,0 +1,32 @@
+#header, .module caption{
+    background: #2A555E;
+    color: white;
+}
+
+#branding h1 a:link,
+#branding h1 a:visited {
+    color: white;
+    font-weight: 500;
+}
+
+label {
+    cursor: default;
+    font-weight: 500;
+}
+
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+    background: #2A555E;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+#user-tools {
+    color: white;
+}

@@ -11,7 +11,7 @@
     <div class="text-center mb-4">
         <div class="scrolling-wrapper">
         {% for year in years %}
-            <a href="?year={{ year|date:'Y' }}" style="font-weight: 500;" class="btn btn-secondary {% if year|date:'Y' == selected_year %}active{% endif %}">{{ year|date:'Y' }}</a>
+            <a href="?year={{ year|date:'Y' }}" style="font-weight: 600;" class="btn btn-details {% if year|date:'Y' == selected_year %}active{% endif %}">{{ year|date:'Y' }}</a>
         {% endfor %}
         </div>
     </div>

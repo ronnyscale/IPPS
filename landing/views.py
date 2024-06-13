@@ -5,7 +5,6 @@ from core.models import News
 from datetime import datetime, timedelta
 from core.models import *
 
-
 def index(request):
     # Получаем дату, предшествующую сегодняшнему дню на 30 дней
     week_ago = datetime.now() - timedelta(days=30)

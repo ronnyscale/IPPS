@@ -9,12 +9,12 @@
         {% for department in departments %}
         <div class="col-md-12 mb-4">
             <div class="card h-100 shadow-sm mt-2">
-                <div class="card-body">
+                <div class="card-body linkss">
                     <h5 class="card-title border-start-0">{{ department.name }}</h5>
                     <p class="card-text mt-3"><strong>Заведующий:</strong> {{ department.head }}</p>
                     <p class="card-text">{{ department.description|truncatewords:30 }}</p>
                     <p class="card-text"><strong>Телефон:</strong> <a href="tel:{{ department.phone }}">{{ department.phone }}</a></p>
-                    <a href="{% url 'department_detail' department.pk %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
+                    <a href="{% url 'department_detail' department.pk %}" class="btn btn-details" style="font-weight: 600;">Подробнее</a>
                 </div>
             </div>
         </div>

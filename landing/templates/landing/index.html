@@ -76,22 +76,22 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex">
-                            <div class="date-sticker" style="font-weight: 700; color: #2A555E;">
+                            <div class="date-sticker" style="font-weight: 700; color: #ffffff; background-color: #2A555E; padding: 10px; border-radius: 5px;">
                                 <div class="date-day">{{ news_item.date|date:"d" }}</div>
                                 <div class="date-month">{{ news_item.date|date:"M" }}</div>
                             </div>
                             <div class="theme ml-2 d-flex align-items-center">
                                 {% if news_item.theme %}
-                                    <span class="badge badge-secondary" style="margin-left: 10px; color: black; font-weight: 600;">{{ news_item.theme }}</span>
+                                    <span class="badge badge-secondary" style="margin-left: 10px; color: black; font-weight: 600; font-size: 14px;">{{ news_item.theme }}</span>
                                 {% endif %}
                             </div>
                         </div>
                         {% if news_item.image %}
-                            <img src="{{ news_item.image.url }}" class="card-img-top mt-3" alt="{{ news_item.title }}">
+                            <img src="{{ news_item.image.url }}" class="card-img-top mt-3" style="object-fit: cover; width: 100%;" alt="{{ news_item.title }}">
                         {% endif %}
                         <h5 class="card-title mt-3">{{ news_item.title }}</h5>
                         <p class="card-text">{{ news_item.content }}</p>
-                        <a href="{% url 'news_detail' slug=news_item.slug %}" class="btn text-white bg-secondary" style="font-weight: 600;">Подробнее</a>
+                        <a href="{% url 'news_detail' slug=news_item.slug %}" class="btn btn-details" style="font-weight: 600;">Подробнее</a>
                     </div>
                 </div>
             </div>

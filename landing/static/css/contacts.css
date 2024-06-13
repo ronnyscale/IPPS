@@ -48,7 +48,7 @@
 
 /* Дополнительные стили для карточки */
 .linkss a {
-    font-weight: bold;
+    font-weight: 400;
     color: #6c757d;
     /* Приятный серый цвет */
     text-decoration: none;
