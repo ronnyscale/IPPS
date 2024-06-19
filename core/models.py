@@ -392,3 +392,74 @@ class Announcement(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Course(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.TextField()
+    code = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = "Курс"
+        verbose_name_plural = "Курсы"
+
+    def __str__(self):
+        return self.name
+
+
+class Student(models.Model):
+    person = models.OneToOneField("Person", on_delete=models.CASCADE)
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="students"
+    )
+
+    class Meta:
+        verbose_name = "Студент"
+        verbose_name_plural = "Студенты"
+
+    def __str__(self):
+        return self.name
+
+
+class Competency(models.Model):
+    name = models.CharField(max_length=512)
+    code = models.CharField(max_length=50)
+    slug = AutoSlugField(
+        populate_from="slugify_function", unique=True, always_update=True, blank=True
+    )
+
+    def slugify_function(self):
+        return unidecode(self.code)
+
+    def __str__(self):
+        return f"{self.code} - {self.name}"
+
+
+class ParentDiscipline(models.Model):
+
+    code = models.CharField(max_length=50)
+    description = models.TextField(null=True, blank=True)
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="parent_disciplines"
+    )
+
+    def __str__(self):
+        return f"{self.code} - {self.description}"
+
+
+class Discipline(models.Model):
+    name = models.CharField(max_length=100)
+    code = models.CharField(max_length=50)
+    parent_discipline = models.ForeignKey(
+        ParentDiscipline, on_delete=models.CASCADE, related_name="disciplines"
+    )
+    competencies = models.ManyToManyField(Competency, related_name="disciplines")
+    slug = AutoSlugField(
+        populate_from="slugify_function", unique=True, always_update=True, blank=True
+    )
+
+    def slugify_function(self):
+        return unidecode(self.code)
+
+    def __str__(self):
+        return self.name

@@ -1,0 +1,42 @@
+{% extends 'competence_server_base.html' %}
+
+{% block content %}
+
+<div class="container text-center mt-5">
+  <h1>Дисциплины</h1>
+</div>
+<hr class="my-line">
+<br>
+
+<div class="container">
+
+  {% for parent_discipline in parent_disciplines %}
+  <h3>{{ parent_discipline.code }} - {{ parent_discipline.description }}</h3>
+  <hr class="my-line">
+  <br><br>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+
+    {% for discipline in parent_discipline.disciplines.all  %}
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{discipline.code }}</h5>
+          <p class="card-text">{{discipline.name }}</p>
+          <a href="{% url 'discipline_detail' slug=discipline.slug %}" class="btn btn-primary">Перейти</a>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+
+
+  </div>
+  <br><br>
+  {% endfor %}
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,147 @@
+{% extends 'competence_server_base.html' %}
+
+{% block content %}
+  <div class="container text-center mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Проверь свои компетенции</h2>
+    </div>
+    <form class="d-flex mt-4" role="search" method="GET" action="{% url 'search' %}">
+        <input class="form-control me-2" type="search" name="q" placeholder="Поиск" aria-label="Поиск">
+        <button class="btn btn-outline-success" type="submit">Поиск</button>
+    </form>
+
+    <br />
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-3">
+        <a class="nav-link" href="{% url 'disciplines' %}">
+          <div class="circle bg-primary text-white">
+            <h3 style="color:white;">Дисциплины</h3>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-md-auto text-center my-3 my-md-0 align-self-center">
+        <!-- Arrow Right -->
+        <svg class="arrow-right" height="50" width="100">
+          <line x1="25" y1="25" x2="95" y2="25" style="stroke:rgb(0,0,0);stroke-width:2" />
+          <polygon points="90,15 100,25 90,35" style="fill:black;" />
+        </svg>
+        <!-- Arrow Down -->
+        <svg class="arrow-down" height="100" width="50">
+          <line x1="25" y1="0" x2="25" y2="195" style="stroke:rgb(0,0,0);stroke-width:2" />
+          <polygon points="15,90 25,100 35,90" style="fill:black;" />
+        </svg>
+      </div>
+
+      <div class="col-md-3">
+        <a class="nav-link" href="{% url 'competencies' %}">
+          <div class="circle bg-success text-white">
+            <h3 style="color:white;">Компетенции</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+    <br />
+    <p class="mt-5">Наш сайт представляет собой платформу, где студенты могут проверить свои знания и навыки по различным дисциплинам.</p>
+    <p>На нашем сайте вы найдете множество ресурсов и инструментов для проверки и улучшения своих компетенций в различных областях. Используйте наш сервис для подготовки к экзаменам, оценки своих знаний и планирования дальнейшего обучения.</p>
+  </div>
+  <br />
+
+  <hr class="my-line" />
+  <br />
+
+  <div class="container mt-5">
+    <section class="mb-5">
+      <h2>Что такое "Сервер-компетенции"?</h2>
+      <p>"Сервер-компетенций" — это информационная система, предназначенная для автоматизации учебных планов и помощи студентам и преподавателям в понимании, какие компетенции формируются на основе изучаемых дисциплин. Мы стремимся к повышению качества образования через современный подход к управлению учебными процессами.</p>
+    </section>
+
+    <br />
+
+    <section class="mb-5">
+      <h2>Наши возможности</h2>
+      <p>Наш сайт предлагает удобный интерфейс для:</p>
+      <ul>
+        <li>Формирования и просмотра списка компетенций.</li>
+        <li>Отслеживания прогресса в изучении дисциплин.</li>
+        <li>Адаптивного использования на любых устройствах, включая мобильные.</li>
+        <li>Удобной навигации и поиска информации.</li>
+      </ul>
+    </section>
+
+    <br />
+    <hr class="my-line" />
+    <br />
+
+    <section class="mb-5">
+      <h2>Контакты</h2>
+      <p>Электронная почта: romanlyamkin334@gmail.com</p>
+      <p>Свободный просп., 79, стр. 2, Красноярск, Россия</p>
+      <form action="#">
+        <div class="mb-3">
+          <label for="name" class="form-label">Ваше имя</label>
+          <input type="text" class="form-control" id="name" name="name" />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Ваш email</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Ваше сообщение</label>
+          <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" href="#">Отправить</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Подвал страницы -->
+  <footer class="text-center text-lg-start mt-5" style="background-color: #F9FFFF; border: 1px solid #2A555E; ">
+    <div class="container p-4">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Ссылки на социальные сети</h5>
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="https://vk.com/oskar555" class="text-dark">ВКонтакте</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Сервер-компетенции</h5>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      font-size: 1em;
+    }
+    
+    .arrow-right {
+      display: inline-block;
+    }
+    
+    .arrow-down {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .arrow-right {
+        display: none;
+      }
+    
+      .arrow-down {
+        display: inline-block;
+      }
+    }
+  </style>
+{% endblock %}

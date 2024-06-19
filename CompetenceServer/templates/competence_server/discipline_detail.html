@@ -1,0 +1,26 @@
+{% extends "competence_server_base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <h3>{{ discipline.name }}</h3>
+  <p>{{ discipline.description }}</p>
+  <table class="table table-bordered table-striped">
+      <thead>
+          <tr>
+              <th scope="col">Код</th>
+              <th scope="col">Описание</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for competency in competencies %}
+              <tr>
+                  <td><a href="{% url 'competency_detail' competency.slug %}">{{ competency.code }}</a></td>
+                  <td>{{ competency.name }}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+{% endblock %}

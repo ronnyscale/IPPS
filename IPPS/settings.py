@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "core",
     "landing",
+    "CompetenceServer",
     
     "django.contrib.admin",
     "django.contrib.auth",

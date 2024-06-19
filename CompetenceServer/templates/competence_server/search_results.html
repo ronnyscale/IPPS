@@ -1,0 +1,54 @@
+{% extends "competence_server_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="news-header mb-4 border-bottom">
+        <h2 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Результаты поиска</h2>
+    </div>
+    <div class="news-header mb-4 border-bottom">
+        <h4 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Дисциплины</h4>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for discipline in disciplines %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ discipline.code }}</h5>
+                        <p class="card-text">{{ discipline.name }}</p>
+                        <a href="{% url 'discipline_detail' discipline.slug %}" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        <div class="news-header mb-4">
+            <p>Нет дисциплин, соответствующих вашему запросу.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="news-header mb-4 border-bottom">
+        <h4 class="text-center mb-4" style="font-size: 2rem; padding-bottom: 10px;">Компетенции</h4>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Код</th>
+                <th scope="col">Описание</th>
+            </tr>
+        </thead>
+        <br>
+        <tbody>
+            {% for competency in competencies %}
+                <tr>
+                    <td><a href="{% url 'competency_detail' competency.slug %}">{{ competency.code }}</a></td>
+                    <td>{{ competency.name }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">Нет компетенций, соответствующих вашему запросу.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
